@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .logout(logout -> logout.permitAll()
                         .deleteCookies("jwt"));
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtUtilities, customUserDetailsService);
-        http.addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
     }

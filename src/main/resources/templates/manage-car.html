@@ -225,7 +225,7 @@
 <div class="container">
     <div class="content">
         <h1>Car management</h1>
-        <button class="btn btn-info" data-toggle="modal" data-target="#addCarModal">Create Booking Page</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#addCarModal">Add a car</button>
         <hr>
         <h2>Cars</h2>
         <form class="form-content" th:action="@{/admin/}" id="bookingPageForm">
@@ -256,7 +256,8 @@
                 <td th:text="${car.brand.brandName}"></td>
                 <td th:text="${car.lentCost}"></td>
                 <td>
-                    <a class="btn btn-info text-light" th:href="@{/admin/car/{carId}(carId = ${car.carId})}">Details</a>
+                    <a th:href="@{/admin/car/{carId}(carId=${car.carId})}" class="btn btn-info text-light">
+                    Details</a>
                     <a class="btn btn-danger delete-btn text-light" th:id="${car.carId}">Delete</a>
                 </td>
             </tr>
@@ -272,7 +273,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="addEventForm" th:action="@{/admin/car}" method="post">
+                <form id="addCarForm" th:action="@{/admin/car}" method="post">
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text"  name="carName" class="form-control">
@@ -300,7 +301,7 @@
                         <input type="text" name="lentCost" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Create</button>
+                        <button type="submit" class="btn btn-info">Create</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -356,6 +357,13 @@
             });
         });
     });
+    function showCarDetail(carName, updateCarBrand, updateCarType, color, lentCost) {
+        document.getElementById('carName').value = carName;
+        document.getElementById('updateCarBrand').value = updateCarBrand;
+        document.getElementById('updateCarType').value = updateCarType;
+        document.getElementById('color').value = color;
+        document.getElementById('lentCost').value = lentCost;
+    }
 </script>
 </body>
 </html>

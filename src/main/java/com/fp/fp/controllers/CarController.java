@@ -10,6 +10,7 @@ import com.fp.fp.services.BrandService;
 import com.fp.fp.services.CarService;
 import com.fp.fp.services.TypeService;
 import com.fp.fp.services.UserService;
+import jakarta.jws.WebParam;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -44,18 +45,28 @@ public class CarController {
     @PostMapping("/car")
     public String addCar(Cars cars,
                          Model model) {
-//        if (brandService.checkExistBrand(cars.getBrand().getBrandName()) == false) {
-//            Brands brands = new Brands();
-//            brands.setBrandName(cars.getBrand().getBrandName());
-//        }
         carService.addCar(cars);
         return "redirect:/admin/";
     }
-    @PostMapping("/car/{carId}")
-    public String updateCar(@PathVariable(value = "carId") Long carId) {
+    @GetMapping("/car/{carId}")
+    public String showUpdateCar(HttpServletRequest request,
+                            @PathVariable(value = "carId") Long carId,
+                            Model model) {
+        List<TypeDTO> types = typeService.getAllCarType();
+        List<BrandDTO> brands = brandService.getAllBrand();
+        UserDTO currentUser = userService.getCurrentUser(request);
         CarDTO findCarById = carService.getCarById(carId);
+        model.addAttribute("types", types);
+        model.addAttribute("brands", brands);
+        model.addAttribute("currentUser", currentUser);
         carService.updateCar(findCarById);
-        return "redirect:/admin/car";
+        model.addAttribute("car", findCarById);
+        return "update-car";
+    }
+    @PostMapping("/car/{carId}")
+    public String updateCar(CarDTO carDTO) {
+        carService.updateCar(carDTO);
+        return "redirect:/admin/";
     }
     @DeleteMapping("/car/{carId}")
     public ResponseEntity deleteCar(@PathVariable(value = "carId") Long carId) {
