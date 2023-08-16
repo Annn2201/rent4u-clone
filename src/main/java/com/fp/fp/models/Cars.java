@@ -31,7 +31,10 @@ public class Cars {
     @Column(name = "color")
     private String color;
     @Basic
-    @Column(name = "lent_cost")
+    @Column(name = "rent_cost")
     private Double lentCost;
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private Users users;
 
 }

@@ -1,5 +1,6 @@
 package com.fp.fp.controllers;
 
+import com.fp.fp.config.JwtUtilities;
 import com.fp.fp.dtos.BrandDTO;
 import com.fp.fp.dtos.CarDTO;
 import com.fp.fp.dtos.TypeDTO;
@@ -11,7 +12,9 @@ import com.fp.fp.services.CarService;
 import com.fp.fp.services.TypeService;
 import com.fp.fp.services.UserService;
 import jakarta.jws.WebParam;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,8 +39,6 @@ public class CarController {
         List<BrandDTO> brands = brandService.getAllBrand();
         List<CarDTO> cars = carService.getAllCars();
         UserDTO currentUser = userService.getCurrentUser(request);
-        model.addAttribute("types", types);
-        model.addAttribute("brands", brands);
         model.addAttribute("cars", cars);
         model.addAttribute("currentUser", currentUser);
         return "manage-car";

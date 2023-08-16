@@ -129,7 +129,7 @@
     }
 
     li:hover {
-      background-color: #329685;
+      background-color: #d66422;
       border-radius: 5px;
       color: #f0f0f0;
     }
@@ -151,7 +151,7 @@
 
     #keyword:focus {
       outline: none;
-      border-color: #329685;
+      border-color: #d66422;
       box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
     }
 
@@ -225,10 +225,12 @@
 <div class="container">
   <div class="content">
     <h1>Car management</h1>
-    <button class="btn btn-info" href="index.html">Back to dashboard</button>
+    <form th:action="@{/admin/}">
+      <button class="btn btn-info" type="submit">Back to dashboard</button>
+    </form>
     <hr>
     <h2>Cars</h2>
-    <form id="updateCarForm" method="post" th:action="@{/admin/car/{carId}(carId = ${car.carId})}">
+    <form id="carForm" method="post" th:action="@{/admin/car/{carId}(carId = ${car.carId})}">
       <div class="form-group">
         <label>Name</label>
         <input type="text" id="carName" name="carName" class="form-control" th:value="${car.carName}">

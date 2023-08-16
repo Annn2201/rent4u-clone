@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
   <!-- Basic -->
@@ -35,7 +35,7 @@
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" th:href="@{/}">
             <span>
               Rent4u
             </span>
@@ -43,9 +43,7 @@
 
           <div class="navbar-collapse" id="">
             <div class="user_option">
-              <a href="">
-                Login
-              </a>
+              <a href="" th:text="${currentUser.username}"></a>
             </div>
             <div class="custom_menu-btn">
               <button onclick="openNav()">
@@ -61,7 +59,7 @@
                 <a href="car.html">Cars</a>
                 <a href="blog.html">Blog</a>
                 <a href="contact.html">Contact Us</a>
-                <a th:href="@{/logout}">Login</a>
+                <a th:href="@{/logout}">Logout</a>
               </div>
             </div>
           </div>
@@ -170,11 +168,8 @@
       <img src="/images/book-car.png" alt="">
     </div>
   </section>
-
   <!-- end book section -->
-
   <!-- car section -->
-
   <section class="car_section layout_padding2-top layout_padding-bottom">
     <div class="container">
       <div class="heading_container">
@@ -237,11 +232,8 @@
       </div>
     </div>
   </section>
-
   <!-- end car section -->
-
   <!-- about section -->
-
   <section class="about_section layout_padding-bottom">
     <div class="container-fluid">
       <div class="row">
@@ -266,12 +258,8 @@
       </div>
     </div>
   </section>
-
   <!-- end about section -->
-
-
   <!-- best section -->
-
   <section class="best_section">
     <div class="container">
       <div class="book_now">
@@ -284,7 +272,7 @@
           </p>
         </div>
         <div class="btn-box">
-          <a href="">
+          <a href="#rent_section layout_padding">
             Book Now
           </a>
         </div>
@@ -292,188 +280,27 @@
     </div>
   </section>
 
-  <!-- end best section -->
-
-  <!-- rent section -->
-
-  <section class="rent_section layout_padding">
+  <section id="rent_section layout_padding" class="rent_section layout_padding">
     <div class="container">
       <div class="rent_container">
-        <div class="box">
+        <div th:each="car : ${cars}" class="box">
           <div class="img-box">
-            <img src="/images/r-1.png" alt="">
+            <img src="#" alt="">
+            <p th:text="${car.carName}"></p>
           </div>
           <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="/images/r-2.png" alt="">
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="/images/r-3.png" alt="">
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="/images/r-4.png" alt="">
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="/images/r-5.png" alt="">
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="/images/r-6.png" alt="">
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
+            <a th:if="${car.users == null}" th:href="@{/car/{carId}(carId = ${car.carId})}" th:text="${'Rent $' + car.rentCost}"></a>
+            <a th:unless="${car.users == null}">Rented</a>
           </div>
         </div>
       </div>
       <div class="btn-box">
-        <a href="">
-          See More
-        </a>
+        <a href="">See More</a>
       </div>
     </div>
   </section>
-
-
   <!-- end rent section -->
-
-  <!-- blog section -->
-
-  <section class="blog_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Our Latest Blog
-        </h2>
-        <p>
-          It is a long established fact that a reader will be distracted by the
-        </p>
-      </div>
-    </div>
-    <div class="blog_container">
-      <div class="layout_padding2-top">
-        <div class="carousel-wrap ">
-          <div class="owl-carousel">
-            <div class="item">
-              <div class="box">
-                <div class="date-box">
-                  <h6>
-                    04 Nov 2019
-                  </h6>
-                </div>
-                <div class="img-box">
-                  <img src="/images/b-1.jpg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Vintage
-                  </h5>
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable The point of using Lorem </p>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="box">
-                <div class="date-box">
-                  <h6>
-                    04 Nov 2019
-                  </h6>
-                </div>
-                <div class="img-box">
-                  <img src="/images/b-2.jpg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Steering wheels
-                  </h5>
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable The point of using Lorem </p>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="box">
-                <div class="date-box">
-                  <h6>
-                    04 Nov 2019
-                  </h6>
-                </div>
-                <div class="img-box">
-                  <img src="/images/b-3.jpg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Buick Car
-                  </h5>
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable The point of using Lorem </p>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="box">
-                <div class="date-box">
-                  <h6>
-                    04 Nov 2019
-                  </h6>
-                </div>
-                <div class="img-box">
-                  <img src="/images/b-2.jpg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Steering wheels
-                  </h5>
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable The point of using Lorem </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end blog section -->
-
   <!-- us section -->
-
   <section class="us_section">
     <div class="container">
       <div class="heading_container">
@@ -535,11 +362,8 @@
       </div>
     </div>
   </section>
-
   <!-- end us section -->
-
   <!-- client section -->
-
   <section class="client_section layout_padding">
     <div class="container">
       <div class="heading_container">
@@ -648,14 +472,10 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
-
   <!-- end client section -->
-
   <!-- contact section -->
-
   <section class="contact_section layout_padding">
     <div class="container">
       <div class="heading_container">
@@ -689,7 +509,6 @@
             demo@gmail.com
           </h6>
         </a>
-
       </div>
       <div class="social_container">
         <div class="social-box">
@@ -717,11 +536,8 @@
       </div>
     </div>
   </section>
-
   <!-- end contact section -->
-
   <!-- map section -->
-
   <section class="map_section">
     <!-- map section -->
     <div class="map_container">
@@ -731,10 +547,7 @@
     </div>
     <!-- end map section -->
   </section>
-
-
   <!-- end map section -->
-
   <!-- footer section -->
   <footer class="container-fluid footer_section">
     <p>
@@ -743,14 +556,10 @@
     </p>
   </footer>
   <!-- footer section -->
-
   <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="/js/bootstrap.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
   </script>
   <script src="/js/custom.js"></script>
-
-
 </body>
-
 </html>
