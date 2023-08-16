@@ -2,6 +2,7 @@ package com.fp.fp.dtos;
 
 import com.fp.fp.models.Brands;
 import com.fp.fp.models.Types;
+import com.fp.fp.models.Users;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -19,5 +20,6 @@ public class CarDTO {
     private Types carType;
     private String carName;
     private String color;
-    private Double lentCost;
+    private Double rentCost;
+    private Users users;
 }

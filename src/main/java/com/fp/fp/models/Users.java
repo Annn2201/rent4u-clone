@@ -41,6 +41,9 @@ public class Users implements Serializable, UserDetails {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Roles> userRole = new ArrayList<>();
 
+    @OneToMany(mappedBy = "users")
+    private List<Cars> cars;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Rent4u</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/index.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="hero_area">
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg custom_nav-container">
+        <a class="navbar-brand" th:href="@{/}">
+            <span>
+              Rent4u
+            </span>
+        </a>
+
+        <div class="navbar-collapse" id="">
+          <div class="user_option">
+            <a href="" th:text="${currentUser.username}"></a>
+          </div>
+          <div class="custom_menu-btn">
+            <button onclick="openNav()">
+              <span class="s-1"> </span>
+              <span class="s-2"> </span>
+              <span class="s-3"> </span>
+            </button>
+          </div>
+          <div id="myNav" class="overlay">
+            <div class="overlay-content">
+              <a href="index.html">Home</a>
+              <a href="about.html">About</a>
+              <a href="car.html">Cars</a>
+              <a href="blog.html">Blog</a>
+              <a href="contact.html">Contact Us</a>
+              <a th:href="@{/logout}">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+</div>
+  <!-- end header section -->
+<!--  car info section-->
+  <section id="car_info_section layout_padding" class="car_info_section layout_padding">
+    <div class="container">
+      <div class="content">
+        <h1>Car management</h1>
+        <form th:action="@{/}">
+          <button class="btn btn-info" type="submit">Back to home</button>
+        </form>
+        <div th:if="${param.success}">
+          <div class="alert alert-info">
+            Thank for renting, your renting is successful
+          </div>
+        </div>
+        <div th:if="${param.unavailable}">
+          <div class="alert alert-danger">
+            This car was lented! Please select another
+          </div>
+        </div>
+        <hr>
+        <h2>Cars</h2>
+        <form id="updateCarForm" method="post" th:action="@{/car/{carId}(carId = ${car.carId})}">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="carName" name="carName" class="form-control" th:value="${car.carName}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="carName" class="form-control" th:value="${car.brand.brandName}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="carType">Type</label>
+            <input type="text" id="carType" name="carName" class="form-control" th:value="${car.carType.typename}" readonly>
+          </div>
+          <div class="form-group">
+            <label>Sits</label>
+            <input type="text" id="sits" name="sits" class="form-control" th:value="${car.carType.sit}" readonly>
+          </div>
+          <div class="form-group">
+            <label>Color</label>
+            <input type="text" id="color" name="color" class="form-control" th:value="${car.color}" readonly>
+          </div>
+          <div class="form-group">
+            <label>Lent cost</label>
+            <input type="text" id="lentCost" name="lentCost" class="form-control" th:value="${car.rentCost}" readonly>
+          </div>
+          <div class="modal-footer">
+            <button th:if="${car.users == null}" type="submit" class="btn btn-info">Rent</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+<!-- contact section -->
+
+<section class="contact_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        Request A call back
+      </h2>
+    </div>
+    <div class="contact_items">
+      <a href="">
+        <div class="img-box">
+          <img src="/images/location.png" alt="">
+        </div>
+        <h6>
+          Loram Ipusum ari
+          lo elisant na
+        </h6>
+      </a>
+      <a href="">
+        <div class="img-box">
+          <img src="/images/call.png" alt="">
+        </div>
+        <h6>
+          (+12 1234456789)
+        </h6>
+      </a>
+      <a href="">
+        <div class="img-box">
+          <img src="/images/mail.png" alt="">
+        </div>
+        <h6>
+          demo@gmail.com
+        </h6>
+      </a>
+
+    </div>
+    <div class="social_container">
+      <div class="social-box">
+        <div>
+          <a href="">
+            <img src="/images/fb.png" alt="">
+          </a>
+        </div>
+        <div>
+          <a href="">
+            <img src="/images/twitter.png" alt="">
+          </a>
+        </div>
+        <div>
+          <a href="">
+            <img src="/images/linkedin.png" alt="">
+          </a>
+        </div>
+        <div>
+          <a href="">
+            <img src="/images/insta.png" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- end contact section -->
+
+<!-- map section -->
+
+<section class="map_section">
+  <!-- map section -->
+  <div class="map_container">
+    <div class="map-responsive">
+      <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+    </div>
+  </div>
+  <!-- end map section -->
+</section>
+
+
+<!-- end map section -->
+
+<!-- footer section -->
+<footer class="container-fluid footer_section">
+  <p>
+    Copyright &copy; 2020 All Rights Reserved. Design by
+    <a href="https://html.design/">Free Html Templates</a>
+  </p>
+</footer>
+<!-- footer section -->
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+</script>
+<script src="/js/custom.js"></script>
+</body>
+</html>

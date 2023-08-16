@@ -73,6 +73,6 @@ public class LoginController {
                 return "redirect:/admin/";
             }
         }
-    return "index";
+    return "redirect:/";
     }
 }
