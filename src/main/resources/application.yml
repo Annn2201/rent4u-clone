@@ -20,28 +20,14 @@ spring:
   thymeleaf:
     cache: false
     enabled: true
-  mail:
-    default-encoding: UTF-8
-    host: smtp.gmail.com
-    username: ycbmclone@gmail.com
-    password: vxovoyyurxgxlhsb
-    port: 587
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-    protocol: smtp
-    test-connection: false
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-secret: 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
-            client-id: 885206176344-7ppl89dobit51bthb75u5tg5s9491o4k.apps.googleusercontent.com
-            scope: email, profile, https://www.googleapis.com/auth/calendar, https://www.googleapis.com/auth/calendar.events
+minio:
+  bucket:
+    name: rent4u
+  access:
+    key: minioadmin
+    secret: minioadmin
+  url: http://127.0.0.1:9000
+
 #logging:
 #  level:
 #    org.springframework.security: DEBUG

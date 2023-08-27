@@ -6,7 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface UserService {
     void saveUser(Users users);
-
     UserDTO getUserByUsername(String username);
-    UserDTO getCurrentUser(HttpServletRequest request);
+    UserDTO getCurrentUser();
+
+    void updatePassword(String newPassword, String username);
+
+    boolean checkValidOldPassword(String password, String username);
 }

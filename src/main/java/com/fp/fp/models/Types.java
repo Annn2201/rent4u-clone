@@ -20,7 +20,7 @@ public class Types {
     private long typeId;
     @Basic
     @Column(name = "type_name")
-    private String typename;
+    private String typeName;
     @Basic
     @Column(name = "sit")
     private Integer sit;

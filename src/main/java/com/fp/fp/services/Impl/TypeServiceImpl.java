@@ -5,6 +5,7 @@ import com.fp.fp.models.Types;
 import com.fp.fp.repositories.TypeRepository;
 import com.fp.fp.services.TypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +18,10 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public List<TypeDTO> getAllCarType() {
         List<Types> carTypes = typeRepository.findAll();
-        return carTypes.stream().map(carType -> TypeDTO.builder()
-                .typeId(carType.getTypeId())
-                .typeName(carType.getTypename())
-                .cars(carType.getCars())
-                .build()).collect(Collectors.toList());
+        return carTypes.stream().map(carType -> {
+            TypeDTO typeDTO = new TypeDTO();
+            BeanUtils.copyProperties(carType, typeDTO);
+            return typeDTO;
+        }).collect(Collectors.toList());
     }
 }
