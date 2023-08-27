@@ -1046,6 +1046,14 @@ a:focus {
     margin-left: 8px;
 }
 
+.user_info_section {
+    background-color: #d5c5f6;
+}
+
+.user_info_section .container {
+    display: flex;
+}
+
 .map_section {
     height: 400px;
 }
@@ -1091,4 +1099,16 @@ a:focus {
 .btn-info:focus {
     background-color: #d66422;
     border-color: #d66422;
+}
+
+.info-user-container-fluid {
+    background-color: #240a5e;
+}
+
+.row {
+    padding-top: 10px;
+}
+
+.navbar-brand {
+    padding: 10px;
 }

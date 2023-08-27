@@ -22,4 +22,5 @@ public class CarDTO {
     private String color;
     private Double rentCost;
     private Users users;
+    private String carImageUrl;
 }

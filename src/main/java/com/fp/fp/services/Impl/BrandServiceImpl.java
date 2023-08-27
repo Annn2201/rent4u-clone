@@ -5,6 +5,7 @@ import com.fp.fp.models.Brands;
 import com.fp.fp.repositories.BrandRepository;
 import com.fp.fp.services.BrandService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,10 +32,11 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public List<BrandDTO> getAllBrand() {
         List<Brands> allBrands = brandRepository.findAll();
-        return allBrands.stream().map(brand -> BrandDTO.builder()
-                .brandId(brand.getBrandId())
-                .brandName(brand.getBrandName())
-                .cars(brand.getCars())
-                .build()).collect(Collectors.toList());
+        List<BrandDTO> brandDTOS = allBrands.stream().map(brand -> {
+            BrandDTO brandDTO = new BrandDTO();
+            BeanUtils.copyProperties(brand, brandDTO);
+            return brandDTO;
+        }).collect(Collectors.toList());
+        return brandDTOS;
     }
 }

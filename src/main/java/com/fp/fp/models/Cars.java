@@ -32,9 +32,11 @@ public class Cars {
     private String color;
     @Basic
     @Column(name = "rent_cost")
-    private Double lentCost;
+    private Double rentCost;
     @ManyToOne
     @JoinColumn(name = "user")
     private Users users;
+    @Column(name = "car_image_url")
+    private String carImageUrl;
 
 }

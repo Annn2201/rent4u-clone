@@ -43,7 +43,7 @@
 
           <div class="navbar-collapse" id="">
             <div class="user_option">
-              <a href="" th:text="${currentUser.username}"></a>
+              <a th:href="@{/user/{username}(username = ${currentUser.getUsername()})}" th:text="${currentUser.username}"></a>
             </div>
             <div class="custom_menu-btn">
               <button onclick="openNav()">
@@ -282,12 +282,12 @@
 
   <section id="rent_section layout_padding" class="rent_section layout_padding">
     <div class="container">
-      <div class="rent_container">
+      <div class="rent_container" >
         <div th:each="car : ${cars}" class="box">
-          <div class="img-box">
-            <img src="#" alt="">
-            <p th:text="${car.carName}"></p>
+          <div class="img-box" style="display: flex">
+            <img th:src="${car.carImageUrl}" alt="" style="max-width: 200px">
           </div>
+          <p th:text="${car.carName}"></p>
           <div class="price">
             <a th:if="${car.users == null}" th:href="@{/car/{carId}(carId = ${car.carId})}" th:text="${'Rent $' + car.rentCost}"></a>
             <a th:unless="${car.users == null}">Rented</a>

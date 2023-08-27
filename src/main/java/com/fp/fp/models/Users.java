@@ -1,10 +1,7 @@
 package com.fp.fp.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +34,9 @@ public class Users implements Serializable, UserDetails {
     private String email;
     @Basic
     private String phone;
+    private String newPassword;
+    private String confirmNewPassword;
+    private String resetPasswordToken;
     @ManyToMany(fetch=FetchType.EAGER , cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Roles> userRole = new ArrayList<>();
@@ -71,5 +71,12 @@ public class Users implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "userId=" + userId +
+                ", username='" + username;
     }
 }

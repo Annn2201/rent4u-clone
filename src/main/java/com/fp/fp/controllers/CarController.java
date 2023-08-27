@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,15 +39,18 @@ public class CarController {
         List<TypeDTO> types = typeService.getAllCarType();
         List<BrandDTO> brands = brandService.getAllBrand();
         List<CarDTO> cars = carService.getAllCars();
-        UserDTO currentUser = userService.getCurrentUser(request);
+        UserDTO currentUser = userService.getCurrentUser();
+        model.addAttribute("brands", brands);
+        model.addAttribute("types", types);
         model.addAttribute("cars", cars);
         model.addAttribute("currentUser", currentUser);
         return "manage-car";
     }
     @PostMapping("/car")
-    public String addCar(Cars cars,
+    public String addCar(Cars car,
+                         @RequestParam("image") MultipartFile imageFile,
                          Model model) {
-        carService.addCar(cars);
+        carService.addCar(car, imageFile);
         return "redirect:/admin/";
     }
     @GetMapping("/car/{carId}")
@@ -55,7 +59,7 @@ public class CarController {
                             Model model) {
         List<TypeDTO> types = typeService.getAllCarType();
         List<BrandDTO> brands = brandService.getAllBrand();
-        UserDTO currentUser = userService.getCurrentUser(request);
+        UserDTO currentUser = userService.getCurrentUser();
         CarDTO findCarById = carService.getCarById(carId);
         model.addAttribute("types", types);
         model.addAttribute("brands", brands);

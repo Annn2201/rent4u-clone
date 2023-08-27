@@ -246,6 +246,7 @@
                 <th>Name</th>
                 <th>Brand</th>
                 <th>Lent cost</th>
+                <th>Rented by</th>
                 <th>More information</th>
             </tr>
             </thead>
@@ -254,7 +255,8 @@
                 <td th:text="${car.carId}"></td>
                 <td th:text="${car.carName}"></td>
                 <td th:text="${car.brand.brandName}"></td>
-                <td th:text="${car.lentCost}"></td>
+                <td th:text="${car.rentCost}"></td>
+                <td th:text="${car.users}"></td>
                 <td>
                     <a th:href="@{/admin/car/{carId}(carId=${car.carId})}" class="btn btn-info text-light">
                     Details</a>
@@ -273,7 +275,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="addCarForm" th:action="@{/admin/car}" method="post">
+                <form id="addCarForm" th:action="@{/admin/car}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Car Image</label>
+                        <input type="file" id="carImage" name="image" class="form-content">
+                        <img id="previewImg" src="#" alt="Selected Image" style="max-width: 300px; display: none;" />
+                    </div>
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text"  name="carName" class="form-control">
@@ -297,8 +304,8 @@
                         <input type="text" name="color" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label>Lent cost</label>
-                        <input type="text" name="lentCost" class="form-control">
+                        <label>Rent cost</label>
+                        <input type="text" name="rentCost" class="form-control">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info">Create</button>
@@ -310,12 +317,6 @@
     </div>
 </div>
 <script>
-    function showLoadingSpinner() {
-        $('#loadingSpinner').show();
-    }
-    function hideLoadingSpinner() {
-        $('#loadingSpinner').hide();
-    }
     $(document).ready(function () {
         $('.delete-btn').click(function (e) {
             e.preventDefault();
@@ -334,29 +335,18 @@
         });
     });
     $(document).ready(function () {
-        $('#bookingPageForm').submit(function (e) {
-            e.preventDefault();
-            showLoadingSpinner();
-            var form = $(this);
-            var url = form.attr('action');
-            var keyword = $('#keyword').val();
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: {keyword: keyword},
-                success: function (response) {
-                    var tableBody = $(response).find('tbody');
-                    $('tbody').replaceWith(tableBody);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                },
-                complete: function() {
-                    hideLoadingSpinner();
+        $('#carImageUrl').change(function () {
+            var input = this
+            if (input.files && input.files[0]) {
+                var reader = new FileReader()
+                reader.onload = function (e) {
+                    $('#previewImg').attr("src", e.target.result)
+                    $('#previewImg').css("display", "block")
                 }
-            });
-        });
-    });
+                reader.readAsDataURL(input.files[0])
+            }
+        })
+    })
 </script>
 </body>
 </html>
