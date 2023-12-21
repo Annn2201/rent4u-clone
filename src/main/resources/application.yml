@@ -4,6 +4,8 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true
+    lazy-initialization: true
   application:
     name: FP
   datasource:
@@ -14,8 +16,8 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MariaDBDialect
     hibernate:
-      ddl-auto: none
-    generate-ddl: false
+      ddl-auto: create
+    generate-ddl: true
     show-sql: true
   thymeleaf:
     cache: false
