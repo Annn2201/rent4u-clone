@@ -17,9 +17,10 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 public class Users implements Serializable, UserDetails {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "my_entity_seq", sequenceName = "MY_ENTITY_SEQ", allocationSize = 5)
     @Id
-    private long userId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_entity_seq")
+    private Long userId;
     @Basic
     private String username;
     @Basic
@@ -37,7 +38,7 @@ public class Users implements Serializable, UserDetails {
     private String newPassword;
     private String confirmNewPassword;
     private String resetPasswordToken;
-    @ManyToMany(fetch=FetchType.EAGER , cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Roles> userRole = new ArrayList<>();
 
